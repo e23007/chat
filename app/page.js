@@ -12,7 +12,7 @@ const Name = () => {
       const id = ulid()
       window.localStorage.setItem('userName', JSON.stringify(name))
       window.localStorage.setItem('userId', JSON.stringify(id))
-      router.push('/Chat')
+      router.push('/chat')
       // router.push(`/Chat/?username=${name}&id=${ulid()}`)
     }
   }

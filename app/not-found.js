@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/navigation'
 import { Center, VStack, Heading, Text, Button } from '@chakra-ui/react'
 

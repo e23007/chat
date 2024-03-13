@@ -15,8 +15,8 @@ import {
 const socket = io('http://localhost:5000')
 const Chat = () => {
   const router = useRouter()
-  const [name, setName] = useState()
-  const [id, setId] = useState()
+  const [name, setName] = useState('')
+  const [id, setId] = useState('')
   const [message, setMessage] = useState('')
   const [list, setList] = useState([])
   const handleClick = () => {
@@ -31,11 +31,10 @@ const Chat = () => {
   })
   useEffect(() => {
     const userName = JSON.parse(window.localStorage.getItem('userName'))
-    console.log(userName)
     const userId = JSON.parse(window.localStorage.getItem('userId'))
     setName(userName)
     setId(userId)
-    if (!name) return redirect('/')
+    if (userName === null) return redirect('/')
   }, [])
   return (
     <Center h='calc(100vh)'>

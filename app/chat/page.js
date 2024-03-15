@@ -19,6 +19,7 @@ const Chat = () => {
   const [message, setMessage] = useState('')
   const [list, setList] = useState([])
   const socket = io({ autoConnect: false })
+  socket.connect()
   const handleClick = () => {
     // サーバーへの送信
     if (message === '') return
@@ -30,44 +31,26 @@ const Chat = () => {
   socket.on('received_message', data => {
     setList([...list, data])
   })
-  // useEffect(async () => {
-  //   await fetch('http://localhost:3000/api/sockets', { method: 'POST' })
-  //   socket.connect()
-  //   const userName = JSON.parse(window.localStorage.getItem('userName'))
-  //   const userId = JSON.parse(window.localStorage.getItem('userId'))
-  //   setName(userName)
-  //   setId(userId)
-  //   if (userName === null) return redirect('/')
-  //   return () => {
-  //     // 登録したイベントは全てクリーンアップ
-  //     socket.off()
-  //   }
-  // }, [])
   useEffect(() => {
-    // socket.ioサーバを起動するapiを実行
-    const userName = JSON.parse(window.localStorage.getItem('userName'))
-    const userId = JSON.parse(window.localStorage.getItem('userId'))
+    const userName = JSON.parse(window.sessionStorage.getItem('userName'))
+    const userId = JSON.parse(window.sessionStorage.getItem('userId'))
     setName(userName)
     setId(userId)
     if (userName === null) return redirect('/')
-    fetch('/api/sockets', { method: 'POST' }).then(() => {
-      // 既に接続済だったら何もしない
-      if (socket.connected) {
-        return
-      }
-      // socket.ioサーバに接続
-      socket.connect()
-      // socket.ioのイベント登録する場合はここに
-      socket.on('connect', () => {
-        console.log('connected!')
-      })
-      // socket.ioサーバから送られてきたメッセージを出力
-    })
-    return () => {
-      // 登録したイベントは全てクリーンアップ
-      socket.off('connect')
+    const socket = async () => {
+      await fetch('http://localhost:3000/api/sockets', { method: 'POST' })
     }
+    socket()
   }, [])
+  // useEffect(() => {
+  //   // socket.ioサーバを起動するapiを実行
+  //   const userName = JSON.parse(window.sessionStorage.getItem('userName'))
+  //   const userId = JSON.parse(window.sessionStorage.getItem('userId'))
+  //   setName(userName)
+  //   setId(userId)
+  //   if (userName === null) return redirect('/')
+  //   fetch('/api/sockets', { method: 'POST' }).then(() => {})
+  // }, [])
   return (
     <Center h='calc(100vh)'>
       <VStack w='100%' h='calc(100vh)'>

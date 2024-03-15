@@ -10,8 +10,8 @@ const Name = () => {
   const handleSet = () => {
     if (name !== '' && name.length < 6) {
       const id = ulid()
-      window.localStorage.setItem('userName', JSON.stringify(name))
-      window.localStorage.setItem('userId', JSON.stringify(id))
+      window.sessionStorage.setItem('userName', JSON.stringify(name))
+      window.sessionStorage.setItem('userId', JSON.stringify(id))
       router.push('/chat')
       // router.push(`/Chat/?username=${name}&id=${ulid()}`)
     }

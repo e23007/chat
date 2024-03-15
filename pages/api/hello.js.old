@@ -1,0 +1,5 @@
+const handler = (req, res) => {
+  console.log(req.body.message)
+  res.status(200).json({ message: 'hello' })
+}
+export default handler

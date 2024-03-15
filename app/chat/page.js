@@ -24,7 +24,6 @@ const Chat = () => {
     // サーバーへの送信
     if (message === '') return
     socket.emit('send_message', { id, name, message })
-    console.log(id, name)
     setMessage('')
   }
   // サーバーから受信
@@ -38,7 +37,9 @@ const Chat = () => {
     setId(userId)
     if (userName === null) return redirect('/')
     const socket = async () => {
-      await fetch('/api/sockets', { method: 'POST' })
+      await fetch('https://chat-six-red.vercel.app/api/sockets', {
+        method: 'POST'
+      })
     }
     socket()
   }, [])

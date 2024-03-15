@@ -38,7 +38,7 @@ const Chat = () => {
     setId(userId)
     if (userName === null) return redirect('/')
     const socket = async () => {
-      await fetch('http://localhost:3000/api/sockets', { method: 'POST' })
+      await fetch('/api/sockets', { method: 'POST' })
     }
     socket()
   }, [])
